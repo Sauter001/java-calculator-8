@@ -14,10 +14,9 @@ public class Application {
 
         // 문자열의 수 쪼개기
         NumberTokenizer numberTokenizer = new NumberTokenizer(inputString);
-        List<Number> numbers = numberTokenizer.tokenize();
 
         // 쪼개진 수 계산
-        Calculator calculator = new Calculator(numbers);
+        Calculator calculator = new Calculator(numberTokenizer.tokenize());
         result = calculator.sum();
 
         System.out.printf("결과 : %d\n", result);

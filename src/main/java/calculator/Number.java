@@ -20,11 +20,6 @@ public class Number {
         }
     }
 
-    public Number add(Number number) {
-        this.value += number.value;
-        return this;
-    }
-
     public int getValue() {
         return this.value;
     }
