@@ -52,6 +52,22 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void zero_input_test() {
+        assertSimpleTest(() -> {
+            assertThatThrownBy(() -> runException("1:0:2"))
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
+    }
+
+    @Test
+    void zero_input_test2() {
+        assertSimpleTest(() -> {
+            assertThatThrownBy(() -> runException("//;\\n1:0:5"))
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
+    }
+
+    @Test
     void 음수_입력_테스트() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("-1,2,3"))
