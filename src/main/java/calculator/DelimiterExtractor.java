@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DelimiterExtractor {
-    private static final String DELIMITER_REGEX = "^//(.)\\\\n"; // custom 구분자 추출을 위한 정규표현식
+    private static final String DELIMITER_REGEX = "^//(.+?)\\\\n"; // custom 구분자 추출을 위한 정규표현식
     private static final String DEFAULT_DELIMITERS = ",:";
 
     private final Matcher delimiterMatcher;
