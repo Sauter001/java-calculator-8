@@ -17,7 +17,7 @@ public class Calculator {
         }
 
         for (Number number : numbers) {
-            totalSum += number.getValue();
+            totalSum = number.addTo(totalSum);
         }
 
         return totalSum;

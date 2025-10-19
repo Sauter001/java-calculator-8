@@ -20,7 +20,7 @@ public class Number {
         }
     }
 
-    public int getValue() {
-        return this.value;
+    public int addTo(int currentValue) {
+        return this.value + currentValue;
     }
 }
