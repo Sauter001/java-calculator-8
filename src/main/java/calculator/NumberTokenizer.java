@@ -10,12 +10,44 @@ import java.util.stream.Collectors;
 
 public class NumberTokenizer {
     private static final String DEFAULT_DELIMITERS = ",:";
-    private String numberList;
-    private String delimiters;
+    private final String numberList;
+    private final String delimiters;
 
     public NumberTokenizer(String input) {
-        this.numberList = input;
-        this.delimiters = DEFAULT_DELIMITERS;
+        this.delimiters = initDelimiters(input);
+        this.numberList = initNumberListString(input);
+    }
+
+    private String initNumberListString(String input) {
+        Pattern pattern = Pattern.compile("^//(.)\\\\n"); // custom 구분자 추출을 위한 정규표현식
+        Matcher matcher = pattern.matcher(input);
+
+        // 커스텀 구분자 정의 안 된 경우 입력 문자열 그대로
+        if (!matcher.find()) {
+            return input;
+        }
+
+        return input.substring(matcher.end());
+    }
+
+    private String initDelimiters(String input) {
+        Pattern pattern = Pattern.compile("^//(.)\\\\n"); // custom 구분자 추출을 위한 정규표현식
+        Matcher matcher = pattern.matcher(input);
+
+        if (!matcher.find()) {
+            return DEFAULT_DELIMITERS;
+        }
+
+        String customDelimiter = matcher.group(1);
+        if (customDelimiter == null || customDelimiter.isEmpty()) {
+            throw new IllegalArgumentException("입력 받은 커스텀 구분자가 없습니다.");
+        }
+
+        if (customDelimiter.length() != 1) {
+            throw new IllegalArgumentException("커스텀 구분자 길이는 1이어야 합니다.");
+        }
+
+        return DEFAULT_DELIMITERS + customDelimiter;
     }
 
     public List<Number> tokenize() {

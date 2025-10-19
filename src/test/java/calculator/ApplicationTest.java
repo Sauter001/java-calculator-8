@@ -16,7 +16,41 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 커스텀_구분자_2() {
+        assertSimpleTest(() -> {
+            run("//;\\n1;2;3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_기본_구분자_혼합() {
+        assertSimpleTest(() -> {
+            run("//;\\n1;2,3,4");
+            assertThat(output()).contains("결과 : 10");
+        });
+    }
+
+    @Test
+    void 커스텀_기본_구분자_혼합2() {
+        assertSimpleTest(() -> {
+            run("//;\\n1;2,3:4");
+            assertThat(output()).contains("결과 : 10");
+        });
+    }
+
     // 예외 입력 테스트
+    // ------------------
+
+    @Test
+    void 임의_문자열() {
+        assertSimpleTest(() -> {
+            assertThatThrownBy(() -> runException("wootech"))
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
+    }
+
     @Test
     void 음수_입력_테스트() {
         assertSimpleTest(() ->
@@ -41,7 +75,32 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 커스텀_구분자_공백() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 커스텀_구분자_길이2() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//ab\\n1a2b3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 커스텀_구분자_길이3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//abc\\n1a2b3c4"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
     // 정상 입력 테스트
+    // ------------------
     @Test
     void 빈문자열_테스트() {
         assertSimpleTest(() -> {
