@@ -1,7 +1,9 @@
 package calculator;
 
+import java.math.BigDecimal;
+
 public class Number {
-    private int value;
+    private BigDecimal value;
 
     public Number(String value) {
         initValue(value);
@@ -9,8 +11,8 @@ public class Number {
 
     private void initValue(String value) {
         try {
-            int numberValue = Integer.parseInt(value);
-            if (numberValue <= 0) {
+            BigDecimal numberValue = new BigDecimal(value);
+            if (numberValue.signum() <= 0) {
                 throw new IllegalArgumentException("입력된 숫자는 양수여야 합니다.");
             }
 
@@ -20,7 +22,7 @@ public class Number {
         }
     }
 
-    public int addTo(int currentValue) {
-        return this.value + currentValue;
+    public BigDecimal addTo(BigDecimal currentValue) {
+        return this.value.add(currentValue);
     }
 }

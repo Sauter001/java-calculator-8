@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Calculator {
@@ -9,11 +10,11 @@ public class Calculator {
         this.numbers = numbers;
     }
 
-    public int sum() {
-        int totalSum = 0;
+    public BigDecimal sum() {
+        BigDecimal totalSum = BigDecimal.ZERO;
         // 리스트에 수가 없는 경우 0
         if (numbers.isEmpty()) {
-            return 0;
+            return BigDecimal.ZERO;
         }
 
         for (Number number : numbers) {
