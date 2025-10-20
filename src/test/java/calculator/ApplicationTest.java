@@ -115,6 +115,14 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 커스텀구분자_소수_테스트() {
+        assertSimpleTest(() -> {
+            run("//!\\n1.2!0.18!2.12!2.5");
+            assertThat(output()).contains("결과 : 6.00");
+        });
+    }
+
     // 정상 입력 테스트
     // ------------------
     @Test
@@ -154,6 +162,22 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() -> {
             run("1,3:5");
             assertThat(output()).contains("결과 : 9");
+        });
+    }
+
+    @Test
+    void 두자리수_테스트() {
+        assertSimpleTest(() -> {
+            run("10,25,35");
+            assertThat(output()).contains("결과 : 70");
+        });
+    }
+
+    @Test
+    void 소수_더하기_테스트() {
+        assertSimpleTest(() -> {
+            run("1.2,0.18,2.12:2.5");
+            assertThat(output()).contains("결과 : 6.00");
         });
     }
 
